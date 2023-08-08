@@ -26,12 +26,19 @@ class Market
 
   
   def total_inventory
-    all_items.map do |item|
-      {item => {quantity: item_stock.find { |each| each[0] == item }[1],
-                vendors: @vendors.find_all { |vendor| vendor.items.include?(item) }
-               }
-              }
-    end[0]
+    all_items.each_with_object({}) do |item, hash|
+     hash[item] = {quantity: item_stock.find { |each| each[0] == item }[1],
+                   vendors: @vendors.find_all { |vendor| vendor.items.include?(item) }
+                  }
+    end
+  end
+
+  def overstocked_items
+    item_stock.each_with_object([]) do |item, array|
+      if item[1] > 50 && vendors_that_sell(item[0]).count > 1
+        array << item[0]
+      end
+    end
   end
 
   private

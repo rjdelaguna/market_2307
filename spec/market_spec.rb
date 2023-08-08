@@ -72,14 +72,14 @@ RSpec.describe Market do
 
     describe "#total_inventory" do
       it 'returns hash of all items, their inventory, and vendors who sell it' do
-        expectation = {item1 => {quantity: 100, vendors: [vendor1, vendor3]}, item2 => {quantity: 7, vendors: [vendor1]}, item3 => {quantity: 25, vendors: vendor2}, item4 => {quantity: 50, vendors: [vendor2]}}
+        expectation = {item1 => {quantity: 100, vendors: [vendor1, vendor3]}, item2 => {quantity: 7, vendors: [vendor1]}, item3 => {quantity: 25, vendors: [vendor2]}, item4 => {quantity: 50, vendors: [vendor2]}}
 
         expect(market.total_inventory).to eq(expectation)
       end
     end
 
     describe "#overstocked_items" do
-      xit 'returns an array of items sold by more than one vendor and a quantity over 50' do
+      it 'returns an array of items sold by more than one vendor and a quantity over 50' do
 
         expect(market.overstocked_items).to eq([item1])
       end
